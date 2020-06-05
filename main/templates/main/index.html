@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Cool title, bro!{% endblock title %}
+
+{% block content %}
+   <div class='flex flex-grow justify-center absolute w-full h-full text-6xl'>
+      <a href="{% url 'blogs:blog-create' %}" class='border w-full m-2 rounded-md flex justify-center items-center hover:bg-black hover:text-white hover:shadow-lg'>
+         <span>[ CREATE ]</span>
+      </a>
+      <a href="{% url 'blogs:blogs-explore' %}" class='border w-full m-2 rounded-md flex justify-center items-center hover:bg-black hover:text-white hover:shadow-lg'>
+         <span>[ EXPLORE ]</span>
+      </a>
+   </div>
+{% endblock content %}

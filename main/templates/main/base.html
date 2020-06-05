@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="yo">
+    <meta name="author" content="yuton">
+    <meta charset="utf-8">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    {% block head %}
+    {% endblock  %}
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    {% block content %}
+    {% endblock  %}
+</body>
+</html>

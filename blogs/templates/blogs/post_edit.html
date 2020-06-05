@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Edit a post{% endblock title %}
+
+{% block content %}
+<div class="w-max sm:max-w-6xl mx-auto border p-4 break-words">
+    <div class='flex justify-center'>
+        <a href="/" class='text-blue-500 text-xs underline mr-2'>#Home</a>
+        <a href="{% url 'blogs:view-blog' post.blog.slug %}" class='text-blue-500 text-xs underline mr-2'>#Blog</a>
+        <a href="{% url 'blogs:post-detail' post.slug %}" class='text-blue-500 text-xs underline mr-2'>#go-back</a>
+        {% include 'blogs/login_nav.html' %}
+    </div>
+
+    {% load myfilters %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% comment %} <div class='flex items-center justify-center p-2'>
+            {{ form.creator.label_tag }}
+            {{ form.creator|addclass:"border" }}
+        </div>
+        <div class='text-red-500 text-center p-1 m-1'>
+            {{ form.creator.errors }}
+        </div>
+        <div class='flex items-center justify-center p-2'>
+            {{ form.blog.label_tag }}
+            {{ form.blog|addclass:"h-16 border"}}
+        </div>
+        <div class='text-red-500 text-center p-1 m-1'>
+            {{ form.blog.errors }}
+        </div> {% endcomment %}
+        <div class='flex items-center justify-center p-2'>
+            {{ form.title.label_tag }}
+            {{ form.title|addclass:"border px-2 my-2" }}
+        </div>
+        <div class='text-red-500 text-center p-1 m-1'>
+            {{ form.title.errors }}
+        </div>
+        <div class='flex items-center justify-center p-2'>
+            {{ form.content.label_tag }}
+            {{ form.content|addclass:"border px-2 my-2" }}
+        </div>
+        <div class='text-red-500 text-center p-1 m-1'>
+            {{ form.content.errors }}
+        </div>
+        <div class='flex items-center justify-center p-2'>
+            {{ form.tags.label_tag }}
+            {{ form.tags|addclass:"border px-2 my-2" }}
+        </div>
+        <div class='text-red-500 text-center p-1 m-1'>
+            {{ form.tags.errors }}
+        </div>
+        <input type="submit" class='my-2 p-2 bg-blue-500 text-white rounded-md' value="Update">
+    </form>
+</div>
+{% endblock content %}

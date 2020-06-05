@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Blog post{% endblock title %}
+
+{% block content %}
+<div class="w-max sm:max-w-6xl mx-auto border p-4 break-words">
+    <p class='text-xs text-center'>{{ post.creator.username }} | {{ post.blog.name }}</p>
+    <div class='flex justify-center'>
+        <a href="/" class='text-blue-500 text-xs underline mr-2'>#Home</a>
+        <a href="{% url 'blogs:view-blog' post.blog.slug %}" class='text-blue-500 text-xs underline mr-2'>#Blog</a>
+
+        {% if is_author %}
+            <a href="{% url 'blogs:post-edit' post.slug %}" class='text-blue-500 text-xs underline mr-2'>#edit</a>
+            <a href="{% url 'blogs:post-remove' post.slug %}" class='text-blue-500 text-xs underline mr-2'>#remove</a>
+        {% endif %}
+
+        {% include 'blogs/login_nav.html' %}
+    </div>
+
+    <h1 class='text-4xl'>{{ post.title }}</h1>
+    <h1 class='text-xs mb-4'>{{post.creator.username}} / {{ post.created_at }}</h1>
+    <p>{{ post.content|safe }}</p>
+</div>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Explore blogs{% endblock title %}
+
+{% block content %}
+<div class="w-max sm:max-w-6xl mx-auto border p-4">
+    <h1 class="text-xl text-center">Blogs</h1>
+    <div class='flex justify-center pb-8'>
+        <a href="/" class='text-blue-500 text-xs underline text-center block mr-2'>#Home</a>
+        {% include 'blogs/login_nav.html' %}
+    </div>
+    {% load myfilters %}
+    <form action="" method="GET">
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.category.label_tag }}
+            {{ form.category|addclass:"border px-2 my-2" }}
+            {{ form.category.errors }}
+        </div>
+        {{ form.non_field_errors }}
+        <div class='flex items-center'>
+            {{ form.search.label_tag }}
+            {{ form.search|addclass:"ml-1 flex-grow border p-1 rounded-md" }}
+            {{ form.search.errors }}
+        </div>
+        <input type="submit" class='my-2 p-2 bg-blue-500 text-white rounded-md' value="Search">
+    </form>
+
+    <div class="flex flex-wrap">
+        {% for blog in blogs %}
+            <div class="border m-2 rounded-md flex-auto w-64">
+                <a href="{% url 'blogs:view-blog' blog.slug %}" class='block text-center underline text-blue-500'>{{blog.name}}</a>
+                <p class='text-xs text-center border-b'>{{ blog.category.name }}</p>
+                <p class='p-1'>{{ blog.description }}</p>
+                <p class='text-right text-xs p-1'>{{blog.creator.username}} {{blog.created_at}}</p>
+            </div>
+        {% endfor %}
+        {% if blogs|length is 0 %}
+        <h1 class='p-4'>No matching blogs found! #_#</h1>
+        {% endif %}
+    </div>
+
+    <div class="">
+        <span class="">
+            {% if page_obj.has_previous %}
+                <a href="?{{url_prefix}}page=1" class='px-2 py-1 border rounded-md shadow mr-1 hover:bg-blue-600 hover:text-white'>&laquo; first</a>
+                <a href="?{{url_prefix}}page={{ page_obj.previous_page_number }}" class='px-2 py-1 border rounded-md shadow mr-1 hover:bg-blue-600 hover:text-white'>previous</a>
+            {% endif %}
+
+            <span class="px-2">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?{{url_prefix}}page={{ page_obj.next_page_number }}" class='px-2 py-1 border rounded-md shadow mr-1 hover:bg-blue-600 hover:text-white'>next</a>
+                <a href="?{{url_prefix}}page={{ page_obj.paginator.num_pages }}" class='px-2 py-1 border rounded-md shadow mr-1 hover:bg-blue-600 hover:text-white'>last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock content %}

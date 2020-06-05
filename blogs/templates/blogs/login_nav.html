@@ -1,0 +1,8 @@
+{% if user.is_authenticated %}
+    <a href="{% url 'profile-view' user.username %}" class='text-blue-500 text-xs underline mr-2'>/ {{ user.username}} /</a>
+    <a href="{% url 'logout' %}" class='text-blue-500 text-xs underline mr-2'>/ (log out) /</a>
+{% else %}
+    <a href="{% url 'login' %}" class='text-blue-500 text-xs underline mr-2'>/ Log in /</a>
+    <a href="{% url 'register-view' %}" class='text-blue-500 text-xs underline mr-2'>/ Register new acc /</a>
+
+{% endif %}

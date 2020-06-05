@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Delete a post{% endblock title %}
+
+{% block content %}
+<div class="w-max sm:max-w-6xl mx-auto border p-4">
+    <h1 class='text-3xl text-center'>Delete a post!</h1>
+    <div class='flex justify-center pb-8'>
+        <a href="/" class='text-blue-500 text-xs underline mr-2'>#home</a>
+        <a href="{% url 'blogs:blogs-explore' %}" class='text-blue-500 text-xs underline mr-2'>#explore-more</a>
+        {% include 'blogs/login_nav.html' %}
+    </div>
+
+    {% load myfilters %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <a href="{% url 'blogs:post-detail' post.slug %}" class='underline text-blue-400'>Cancel</a>
+        <input type="submit" class='my-2 p-2 bg-blue-500 text-white rounded-md' value="Delete">
+    </form>
+</div>
+{% endblock content %}

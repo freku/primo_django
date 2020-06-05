@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<div class="w-max sm:max-w-6xl mx-auto border p-4">
+    <h1 class="text-xl text-center">Login</h1>
+    <div class='flex justify-center pb-8'>
+        <a href="/" class='text-blue-500 text-xs underline mr-2'>#home</a>
+        <a href="{% url 'blogs:blogs-explore' %}" class='text-blue-500 text-xs underline mr-2'>#explore-more</a>
+
+    </div>
+
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+        {% else %}
+        <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div>
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div>
+            {{ form.password.label_tag }}
+            {{ form.password }}
+        </div>
+
+    <input type="submit" value="login">
+    {% comment %} <input type="hidden" name="next" value="{{ next }}"> {% endcomment %}
+    <input type="hidden" name="next" value="/">
+    </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+</div>
+{% endblock content %}
